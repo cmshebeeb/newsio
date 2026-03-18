@@ -118,38 +118,87 @@ def show_recommendations(recs):
 
 
 def main():
-    articles = load_cleaned_articles()
-    if not articles:
-        return
+    while True:
+        articles = load_cleaned_articles()
+        if not articles:
+            print("No articles found.")
+            break
 
-    profile = load_user_profile()
+        profile = load_user_profile()
+        liked_urls = set(profile.get("liked_articles", []))
+        disliked_urls = set(profile.get("disliked_articles", []))
 
-    print("Enter interests (or press Enter to use history only):")
-    user_input = input("> ").strip()
+        print(f"Liked articles so far: {len(liked_urls)}")
+        print(f"Disliked articles so far: {len(disliked_urls)}")
 
-    recs = get_recommendations(user_input, articles)
+        print("\nOptions:")
+        print("  1. Recommend based on interests / history")
+        print("  2. Fetch fresh news articles now")
+        print("  3. Show liked articles")
+        print("  4. Quit")
 
-    show_recommendations(recs)
+        choice = input("\nChoose (1-4): ").strip()
 
-    #feedback
-    if recs:
-        print("\nFeedback time! For each recommendation, type:")
-        print("  l = like    d = dislike    s = skip/next")
-        for rec in recs:
-            choice = input(f"\n{rec['title'][:60]}... → (l/d/s): ").strip().lower()
-            url = rec["url"]
-            if choice == 'l':
-                if url not in profile["liked_articles"]:
-                    profile["liked_articles"].append(url)
-                    print("  → Liked! Added to profile.")
-            elif choice == 'd':
-                if url not in profile["disliked_articles"]:
-                    profile["disliked_articles"].append(url)
-                    print("  → Disliked. Will avoid similar in future.")
+        if choice == "4":
+            print("exiting..")
+            break
+
+        elif choice == "2":
+            print("Running fetch_news.py ...")
+            import subprocess
+            subprocess.run(["python", "fetch_news.py"])
+            print("Fresh fetch done.")
+            continue
+
+        elif choice == "3":
+            if liked_urls:
+                print("\nliked articles:")
+                for url in liked_urls:
+                    for art in articles:
+                        if art["url"] == url:
+                            print(f"- {art['title'][:80]}...")
+                            print(f"  {art['url'][:60]}...")
+                            break
             else:
-                print("  → Skipped.")
+                print("No liked articles yet.")
+            continue
 
-        save_user_profile(profile)
+        elif choice == "1":
+            user_input = input("\nEnter interests (or press Enter to use history only): ").strip()
+
+
+            filtered_articles = [
+                a for a in articles
+                if a["url"] not in liked_urls and a["url"] not in disliked_urls
+            ]
+
+            if not filtered_articles:
+                print("No new articles left to recommend (all seen or liked/disliked)")
+                continue
+
+            recs = get_recommendations(user_input, filtered_articles)
+
+            show_recommendations(recs)
+
+            # Feedback
+            if recs:
+                print("\nGive feedback (l = like, d = dislike, s = skip):")
+                for rec in recs:
+                    choice = input(f"\n{rec['title'][:60]}... → (l/d/s): ").strip().lower()
+                    url = rec["url"]
+                    if choice == 'l':
+                        if url not in profile["liked_articles"]:
+                            profile["liked_articles"].append(url)
+                            print("Liked!")
+                    elif choice == 'd':
+                        if url not in profile["disliked_articles"]:
+                            profile["disliked_articles"].append(url)
+                            print("Disliked.")
+
+
+                save_user_profile(profile)
+        else:
+            print("Invalid choice. Try again.")
 
 
 if __name__ == "__main__":
