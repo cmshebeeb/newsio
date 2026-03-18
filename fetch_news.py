@@ -9,7 +9,6 @@ yesterday = (datetime.now() - timedelta(days=3)).strftime("%Y-%m-%d")
 url = "https://newsapi.org/v2/top-headlines"
 params = {
     "from": yesterday,
-    "q": "news",
     "language": "en",
     "sortBy": "publishedAt",
     "pageSize": 20,
