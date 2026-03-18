@@ -1,2 +1,4 @@
 # newsio
-Personalized News Recommendation System using TF-IDF + Cosine Similarity
+
+Personalized News Recommendation System  
+Built with Python + TF-IDF + Cosine Similarity + User Feedback
