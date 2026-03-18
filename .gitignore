@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+
+
+articles.json
+cleaned_articles.json
+user_profile.json
+
+# VSCode
+.vscode/
