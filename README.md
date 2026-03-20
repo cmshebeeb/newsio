@@ -65,16 +65,3 @@ This is a simple form of **implicit feedback learning** — the system slowly tu
    ```bash
    git clone https://github.com/cmshebeeb/newsio.git
    cd newsio
-
-# Project Repo Structure
-newsio/
-├── fetch_news.py          # Download news from API + save to JSON
-├── preprocess.py          # Clean text, remove stopwords, save cleaned JSON
-├── recommend.py           # Main app: menu, TF-IDF recs, feedback loop
-├── README.md
-├── .gitignore
-├── requirements.txt
-└── data
-    ├── articles.json
-    ├── cleaned_articles.json
-    └── user_profile.json
