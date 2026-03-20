@@ -3,7 +3,7 @@ import json
 from datetime import datetime, timedelta
 
 
-API_KEY = "2fe51de664a64956ac332834ea7fa5ea"
+API_KEY = "a1b1c1d1e1"
 yesterday = (datetime.now() - timedelta(days=3)).strftime("%Y-%m-%d")
 
 url = "https://newsapi.org/v2/top-headlines"
