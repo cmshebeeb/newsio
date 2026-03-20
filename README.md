@@ -71,9 +71,9 @@ This is a simple form of **implicit feedback learning** — the system slowly tu
 3. Install dependencies
     pip install -r requirements.txt
 4. Get free NewsAPI key
-    Go to https://newsapi.org/
-    Sign up and copy API key
-    Paste it inside fetch_news.py (replace "API_KEY")
+     - Go to https://newsapi.org/
+     - Sign up and copy API key
+     - Paste it inside fetch_news.py (replace "API_KEY")
 5. Initial Setup – Creating the Data Files
 
 **Important:** The following JSON files are **not** committed to the repository (they are ignored via `.gitignore`):
@@ -84,12 +84,12 @@ This is a simple form of **implicit feedback learning** — the system slowly tu
 
     Need to generate them the first time:
 
-    # 1. Download some news articles
+     1. Download some news articles
     python fetch_news.py
 
-    # 2. Clean the text & prepare for ML
+     2. Clean the text & prepare for ML
     python preprocess.py
 
-    # 3. Run the recommender at least once
-    #    → it will create an empty automatically
+     3. Run the recommender at least once
+    it will create an empty automatically
             python recommend.py
