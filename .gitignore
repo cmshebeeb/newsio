@@ -1,19 +1,27 @@
 # Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
 .Python
+
+# Virtual environments
 env/
 venv/
 .venv/
+
+# Pip logs
 pip-log.txt
 pip-delete-this-directory.txt
 
+# Environment variables
+.env
 
-articles.json
-cleaned_articles.json
-user_profile.json
+# Data & generated files
+data/
+*.json
 
-# VSCode
+# Jupyter
+ignore.ipynb
+
+# VS Code
 .vscode/
